@@ -24,13 +24,32 @@
     	display: block;
     }
 
+    table{
+        background-color: #61a1bc;
+        border-radius: 2px;
+        box-shadow: 0 1px 1px #ccc;
+        width: 95%;
+        padding: 35px 60px;
+        margin: 50px auto;
+    }
+
+th {
+    padding: 14px 23px;
+}
+
+td {
+    padding: 7px 8px;
+}
+
+
+
 /*-------------------------
     	Grid layout
     --------------------------*/
 
     ul.grid{
     	list-style: none;
-    	width: 570px;
+    	width: 100%;
     	margin: 0 auto;
     	text-align: left;
     }

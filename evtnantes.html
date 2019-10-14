@@ -5,37 +5,40 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel ="stylesheet" type="text/css" href="style.css"/>
+    <link rel ="stylesheet" href="bootstrap\css\bootstrap.css"/>
     <title>jQuery - Vue.js</title>
 
 
 </head>
 <body>
-  <form id="app">
-    <ul class="grid">
-    <!-- <pre>{{commits}}</pre> -->
-      <li v-for="record in commits">
-        <p>{{ record.record_timestamp }}</p>
-        <p>{{ record.fields.lieu_quartier }}</p>
-        <p>{{ record.fields.lieu }}</p>
-        <p>{{ record.fields.type }}</p>
+	<div id="app">
+
+    	<!-- <pre>{{commits}}</pre> -->
+  		<table  class="grid">
+  			<tr class="p-3 mb-2 bg-dark text-white">
+  				<th>Nom</th>
+  				<th>Date</th>
+  				<th>Quartier</th>
+  				<th>Adresse</th>
+  				<th>Type</th>
+  			</tr>    		
+      		<tr v-for="record in commits" class="p-3 mb-2 bg-light text-dark">
+      			<td>{{ record.fields.nom }}</td>
+        		<td>{{ record.record_timestamp }}</td>
+        		<td>{{ record.fields.lieu_quartier }}</td>
+        		<td>{{ record.fields.lieu }}</td>
+        		<td>{{ record.fields.type }}</td>
         <!-- - <span class="message">{{ record.commit.message }}</span><br>
         by <span class="author"><a :href="record.author.html_url" target="_blank">{{ record.commit.author.name }}</a></span>
         at <span class="date">{{ record.commit.author.date }}</span>
       -->
-      </li>
-    </ul>
-
-  </form>
-
+      		</tr>
+  		</table>  
+  		</div>		
   <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>  
   <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
   <script >
-  var apiURL = 'https://data.nantesmetropole.fr/api/records/1.0/search/?dataset=244400404_agenda-evenements-nantes-nantes-metropole&facet=emetteur&facet=rubrique&facet=lieu&facet=ville';
-  var config = {
-        headers: {
-          'Authorization': "token " + '51cdd96f1ea9adb442a6a9f1236efdec6011d5693d917003ff408e45'
-        }
-      };
+  var apiURL = 'https://data.nantesmetropole.fr/api/records/1.0/search/?dataset=244400404_agenda-evenements-nantes-nantes-metropole&facet=emetteur&facet=rubrique&facet=lieu&facet=ville&apikey=51cdd96f1ea9adb442a6a9f1236efdec6011d5693d917003ff408e45';
 
   var app = new Vue({
   el: '#app',
@@ -49,7 +52,7 @@
   methods: {
     fetchData: function () {
           var self = this
-          axios.get(apiURL, config).then(function(response){
+          axios.get(apiURL).then(function(response){
             console.log(response)
             self.commits = response.data.records
             console.log(self.commits)
