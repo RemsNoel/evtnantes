@@ -11,11 +11,22 @@
 
 </head>
 <body>
-	<div id="app">
+	<div id="app" v-cloak>
 
     	<!-- <pre>{{commits}}</pre> -->
-  		<table  class="grid">
-  			<tr class="p-3 mb-2 bg-dark text-white">
+  		<form class="p-3 mb-2 bg-primary text-white">
+  				<h1>Activité sur Nantes</h1>
+  			<div class="bar">
+
+				<!-- These two buttons switch the layout variable,
+			 	which causes the correct UL to be shown. -->
+
+				<a class="list-icon" v-bind:class="{ 'active': layout == 'list'}" v-on:click="layout = 'list'"></a>
+				<a class="grid-icon" v-bind:class="{ 'active': layout == 'grid'}" v-on:click="layout = 'grid'"></a>
+			</div>
+		</form>
+  		<table v-if="layout == 'list'">
+  			<tr class="p-3 mb-2 bg-info text-white">
   				<th>Nom</th>
   				<th>Date</th>
   				<th>Quartier</th>
@@ -24,7 +35,7 @@
   			</tr>    		
       		<tr v-for="record in commits" class="p-3 mb-2 bg-light text-dark">
       			<td>{{ record.fields.nom }}</td>
-        		<td>{{ record.record_timestamp }}</td>
+        		<td>{{ record.fields.date }}</td>
         		<td>{{ record.fields.lieu_quartier }}</td>
         		<td>{{ record.fields.lieu }}</td>
         		<td>{{ record.fields.type }}</td>
@@ -33,7 +44,13 @@
         at <span class="date">{{ record.commit.author.date }}</span>
       -->
       		</tr>
-  		</table>  
+  		</table>
+
+  		<ul v-if="layout == 'grid'" class ="grid">
+  			<li v-for="record in commits">
+  				<img v-bind:src="record.fields.media_1"/>
+  			</li>
+
   		</div>		
   <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>  
   <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
@@ -49,6 +66,11 @@
   created: function () {
         this.fetchData()
       },
+/*  filters: {
+  		formatDate: function(date) {
+        return new Date(date).format('DD/MM/YYYY');
+    },
+  },*/
   methods: {
     fetchData: function () {
           var self = this
@@ -59,7 +81,7 @@
           }).catch(function (error) {
             console.log(error);
           })
-        }
+        },
   }
 
 })
