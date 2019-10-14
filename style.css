@@ -95,7 +95,7 @@ td {
 
     ul.grid{
         list-style: none;
-        width: 570px;
+        width: 85%;
         margin: 0 auto;
         text-align: left;
     }
@@ -106,8 +106,8 @@ td {
     }
 
     ul.grid li img{
-        width:250px;
-        height:250px;
+        width:280px;
+        height:280px;
         object-fit: cover;
         display:block;
         border:none;

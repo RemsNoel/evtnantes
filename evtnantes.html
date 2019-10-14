@@ -49,6 +49,7 @@
   		<ul v-if="layout == 'grid'" class ="grid">
   			<li v-for="record in commits">
   				<img v-bind:src="record.fields.media_1"/>
+  				<p>{{ record.fields.nom }}</p>
   			</li>
 
   		</div>		
